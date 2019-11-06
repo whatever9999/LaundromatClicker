@@ -5,7 +5,7 @@ public class WashingMachine : MonoBehaviour
     public AnimationClip animationClip;
 
     private Animator animator;
-    private ParticleSystem clothesParticleEffect;
+    private ParticleSystem[] particleEffects;
 
     private bool beingClickedOn = false;
     private float clickIntervalToStopAnimating;
@@ -14,7 +14,7 @@ public class WashingMachine : MonoBehaviour
     public void Awake()
     {
         animator = GetComponent<Animator>();
-        clothesParticleEffect = GetComponentInChildren<ParticleSystem>();
+        particleEffects = GetComponentsInChildren<ParticleSystem>();
         clickIntervalToStopAnimating = animationClip.length;
     }
 
@@ -37,6 +37,9 @@ public class WashingMachine : MonoBehaviour
     public void OnMouseDown()
     {
         beingClickedOn = true;
-        clothesParticleEffect.Play();
+        foreach(ParticleSystem PS in particleEffects)
+        {
+            PS.Play();
+        }
     }
 }

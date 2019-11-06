@@ -1,85 +1,54 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using NumberSystem;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject helpPanel;
+    public GameObject menuPanel;
+    public GameObject dailyRewardPanel;
+    public GameObject settingsPanel;
+    public GameObject acceleratorPanel;
+    public GameObject moneyPurchasePanel;
+    public GameObject socialMediaPanel;
+    public GameObject prestigePanel;
+    public GameObject automatorPanel;
+    public GameObject upgradePanel;
+
     public Text moneyText;
     public Text looseChangeText;
+    public Text moneyPerClickText;
+
+    public int numDecimalPlaces;
 
     public void Start()
     {
-        Debug.Log("START");
-        UpdateLooseChange(123);
-        Debug.Log("FIRST");
-        UpdateMoney(125444323432);
-        Debug.Log("SECOND");
+        UpdateMoney("0");
+        UpdateLooseChange("0");
     }
 
-    public void HelpButton()
+    public void UpdateMoney(string money)
     {
-        helpPanel.SetActive(true);
+        moneyText.text = NumberHandler.FormatNumber(money, numDecimalPlaces);
     }
 
-    public void HelpExitButton()
+    public void UpdateLooseChange(string looseChange)
     {
-        helpPanel.SetActive(false);
+        looseChangeText.text = NumberHandler.FormatNumber(looseChange, numDecimalPlaces);
     }
 
-    public void UpdateMoney(BigInteger money)
+    public void UpdateMoneyPerClick(int moneyPerClick)
     {
-        moneyText.text = NumWordsWrapper(money);
+        moneyPerClickText.text = moneyPerClick.ToString();
     }
 
-    public void UpdateLooseChange(BigInteger looseChange)
+    public void ClosePanel(GameObject panel)
     {
-        looseChangeText.text = NumWordsWrapper(looseChange);
+        panel.SetActive(false);
     }
 
-    static string NumWordsWrapper(BigInteger n)
+    public void OpenPanel(GameObject panel)
     {
-        Debug.Log("NUMWORDS");
-        if (n == 0)
-            return "0";
-
-        string words = FormatNumber(n);
-        return words;
-    }
-
-    static string FormatNumber(BigInteger n)
-    {
-        Debug.Log("FORMATNUM");
-        string[] units = { " million", " billion", " trillion", " quadrillion", " quintillion", " sextillion", " septillion", " octillion", " nonillion", " decillion", " undecillion", " duodecillion", " tredecillion", " quattuordecillion", " quindecillion", " sexdecillion", " septendecillion", " octodecillion", " novemdecillion", " vigintillion", " unvigintillion", " duovigintillion", " tresvigintillion", " quattuorvigintillion", " quinquavigintillion", " sesvigintillion", " septemvigintillion", " octovigintillion", " novemvigintillion", " trigintillion", " untrigintillion", " duotrigintillion", " duotrigintillion", " trestrigintillion", " quattuortrigintillion", " quinquatrigintillion", " sestrigintillion", " septentrigintillion", " octotrigintillion", " noventrigintillion", " quadragintillion" };
-
-        bool highnumber = false;
-        int bignumber = 1000000;
-        int unitIndex = -1;
-        string unit = "";
-
-        if (n >= bignumber)
-        {
-            highnumber = true;
-
-            while (n >= bignumber)
-            {
-                bignumber *= 1000; unitIndex++;
-            }
-
-            n /= (bignumber / 1000);
-            unit = units[unitIndex];
-        }
-
-        float floatN = (float)(double)n;
-
-        if (unit == "") {
-            return floatN.ToString();
-        }
-
-        if (highnumber == true)
-        {
-            floatN = Mathf.Round(floatN * 100f) / 100f;
-        }
-
-        return floatN.ToString() + unit;
+        panel.SetActive(true);
     }
 }
