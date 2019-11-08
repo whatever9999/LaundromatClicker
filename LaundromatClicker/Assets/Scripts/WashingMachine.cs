@@ -20,6 +20,8 @@ public class WashingMachine : MonoBehaviour
 
     public void Update()
     {
+        //If the mashine is being clicked on then animate it
+        //Stop animating it when it is not being clicked on
         if(beingClickedOn)
         {
             currentClickInterval += Time.deltaTime;
@@ -36,6 +38,7 @@ public class WashingMachine : MonoBehaviour
 
     public void OnMouseDown()
     {
+        //Animate and use particle effects when clicked on
         beingClickedOn = true;
         foreach(ParticleSystem PS in particleEffects)
         {

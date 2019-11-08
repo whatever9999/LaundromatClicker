@@ -3,12 +3,7 @@ using UnityEngine.Audio;
 
 public enum SoundEffectNames
 {
-    DIG,
-    PICKUPCOIN,
-    INVAN,
-    TIMERBEEP,
-    SKELETONFROMGRAVE,
-    OOF
+    
 }
 
 public class SFXManager : MonoBehaviour

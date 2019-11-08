@@ -4,6 +4,7 @@ using NumberSystem;
 
 public class UIManager : MonoBehaviour
 {
+    //Menu panels (more menus)
     public GameObject helpPanel;
     public GameObject menuPanel;
     public GameObject dailyRewardPanel;
