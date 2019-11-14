@@ -44,5 +44,6 @@ public class WashingMachine : MonoBehaviour
         {
             PS.Play();
         }
+        GameState.instance.IncreaseMoney();
     }
 }

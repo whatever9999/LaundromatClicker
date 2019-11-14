@@ -4,28 +4,28 @@ using NumberSystem;
 
 public class UIManager : MonoBehaviour
 {
-    //Menu panels (more menus)
-    public GameObject helpPanel;
-    public GameObject menuPanel;
-    public GameObject dailyRewardPanel;
-    public GameObject settingsPanel;
-    public GameObject acceleratorPanel;
-    public GameObject moneyPurchasePanel;
-    public GameObject socialMediaPanel;
-    public GameObject prestigePanel;
-    public GameObject automatorPanel;
-    public GameObject upgradePanel;
+    public static UIManager instance;
 
+    public Automator[] automators;
+    public Accelerator[] accelerators;
     public Text moneyText;
     public Text looseChangeText;
     public Text moneyPerClickText;
 
     public int numDecimalPlaces;
 
-    public void Start()
+    private void Awake()
     {
-        UpdateMoney("0");
-        UpdateLooseChange("0");
+        instance = this;
+
+        foreach (Automator a in automators)
+        {
+            a.cost = a.startCost.ToString();
+        }
+        foreach (Accelerator a in accelerators)
+        {
+            a.cost = a.startCost.ToString();
+        }
     }
 
     public void UpdateMoney(string money)
@@ -38,9 +38,9 @@ public class UIManager : MonoBehaviour
         looseChangeText.text = NumberHandler.FormatNumber(looseChange, numDecimalPlaces);
     }
 
-    public void UpdateMoneyPerClick(int moneyPerClick)
+    public void UpdateMoneyPerClick(string moneyPerClick)
     {
-        moneyPerClickText.text = moneyPerClick.ToString();
+        moneyPerClickText.text = NumberHandler.FormatNumber(moneyPerClick, numDecimalPlaces) + " / click";
     }
 
     public void ClosePanel(GameObject panel)
@@ -51,5 +51,74 @@ public class UIManager : MonoBehaviour
     public void OpenPanel(GameObject panel)
     {
         panel.SetActive(true);
+    }
+}
+
+public enum MoneyTypes
+{
+    MONEY,
+    LOOSECHANGE
+}
+
+public enum ItemTypes
+{
+    AUTOMATOR,
+    ACCELERATOR
+}
+
+[System.Serializable]
+public class Automator
+{
+    public enum AutomatorNames
+    {
+        STAFF,
+        WASHERS,
+        DRIERS,
+        NONE
+    }
+
+    public AutomatorNames name;
+    public int numberClicks;
+
+    public MoneyTypes moneyType;
+    public int startCost;
+    public int costIncrease;
+    [HideInInspector]
+    public string cost;
+
+    public void IncreasePrice()
+    {
+        cost = NumberHandler.IncreaseNumber(cost, costIncrease.ToString());
+    }
+}
+
+[System.Serializable]
+public class Accelerator
+{
+    public enum AcceleratorNames
+    {
+        BETTERMACHINES,
+        BETTERSTAFF,
+        BIGGERBUILDING,
+        DETERGENT,
+        FABRICSOFTNER,
+        COLLECTANDDELIVER,
+        BIGGERLAUNDRYBASKETS,
+        CLEANINGCREW,
+        NONE
+    }
+
+    public AcceleratorNames name;
+    public int clickAdd;
+
+    public MoneyTypes moneyType;
+    public int startCost;
+    public int costIncrease;
+    [HideInInspector]
+    public string cost;
+
+    public void IncreasePrice()
+    {
+        cost = NumberHandler.IncreaseNumber(cost, costIncrease.ToString());
     }
 }

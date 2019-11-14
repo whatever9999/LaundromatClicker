@@ -30,7 +30,8 @@ namespace NumberSystem
 
                 while (n.Length >= bignumber)
                 {
-                    bignumber += 3; unitIndex++;
+                    bignumber += 3;
+                    unitIndex++;
                 }
                 bignumber /= 3;
 
@@ -52,7 +53,8 @@ namespace NumberSystem
             //Examples of format: '5.60 million, '4.34 octillion', '7484'
             if (highnumber & !infinite)
             {
-                n = n[0] + "." + n.Substring(1, decimalPlaces);
+                int decimalPoint = n.Length - 3 - (2 * unitIndex);
+                n = n.Substring(0, decimalPoint) + "." + n.Substring(decimalPoint, decimalPlaces);
             }
 
             //Return the number as a string (e.g. 4.56 or 23728) and its unit (e.g. million or '' respectively)
@@ -160,6 +162,7 @@ namespace NumberSystem
             return n;
         }
 
+        //Returns true if a is bigger, null if the same size and false if b is bigger
         public static Nullable<bool> CompareNumbers(string a, string b)
         {
             Nullable<bool> aBigger = false;
