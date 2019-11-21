@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using NumberSystem;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    public GameObject[] purchasePanels;
     public Automator[] automators;
     public Accelerator[] accelerators;
     public Text moneyText;
     public Text looseChangeText;
     public Text moneyPerClickText;
+    public Text randomItemText;
 
     public int numDecimalPlaces;
+
+    private BuyItemPrefab[] buttons;
 
     private void Awake()
     {
@@ -25,6 +30,42 @@ public class UIManager : MonoBehaviour
         foreach (Accelerator a in accelerators)
         {
             a.cost = a.startCost.ToString();
+        }
+    }
+
+    private void Start()
+    {
+        foreach (GameObject go in purchasePanels)
+        {
+            go.SetActive(true);
+        }
+
+        buttons = GameObject.FindObjectsOfType<BuyItemPrefab>();
+
+        foreach(GameObject go in purchasePanels)
+        {
+            go.SetActive(false);
+        }
+    }
+
+    public void ResetPurchases()
+    {
+        instance = this;
+
+        foreach (Automator a in automators)
+        {
+            a.cost = a.startCost.ToString();
+            a.numberClicks = a.startNumberClicks;
+        }
+        foreach (Accelerator a in accelerators)
+        {
+            a.cost = a.startCost.ToString();
+            a.numberClicks = a.startNumberClicks;
+        }
+
+        foreach(BuyItemPrefab b in buttons)
+        {
+            b.UpdateBuyButton();
         }
     }
 
@@ -52,6 +93,18 @@ public class UIManager : MonoBehaviour
     {
         panel.SetActive(true);
     }
+
+    public void ChangeRandomItemText(string newText, float timeOnScreen)
+    {
+        StartCoroutine(RandomItemText(newText, timeOnScreen));
+    }
+
+    public IEnumerator RandomItemText(string newText, float timeOnScreen)
+    {
+        randomItemText.text = newText;
+        yield return new WaitForSeconds(timeOnScreen);
+        randomItemText.text = "";
+    }
 }
 
 public enum MoneyTypes
@@ -78,7 +131,10 @@ public class Automator
     }
 
     public AutomatorNames name;
+    public int clickAdd;
+    [HideInInspector]
     public int numberClicks;
+    public int startNumberClicks;
 
     public MoneyTypes moneyType;
     public int startCost;
@@ -110,6 +166,9 @@ public class Accelerator
 
     public AcceleratorNames name;
     public int clickAdd;
+    [HideInInspector]
+    public int numberClicks;
+    public int startNumberClicks;
 
     public MoneyTypes moneyType;
     public int startCost;

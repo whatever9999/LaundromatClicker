@@ -26,7 +26,7 @@ public class BuyItemPrefab : MonoBehaviour
     public Text cost;
     private int costMultiplier = 1;
 
-    private void Start()
+    private void OnEnable()
     {
         GS = GameState.instance;
         UIM = UIManager.instance;
@@ -64,13 +64,15 @@ public class BuyItemPrefab : MonoBehaviour
                 switch (thisAutomator.moneyType)
                 {
                     case MoneyTypes.MONEY:
-                        if(NumberHandler.CompareNumbers(GS.GetMoney(), totalCost) == true)
+                        bool? result = NumberHandler.CompareNumbers(GS.GetMoney(), totalCost);
+                        if (result == true || result == null)
                         {
                             MakePurchase();
                         }
                         break;
                     case MoneyTypes.LOOSECHANGE:
-                        if (NumberHandler.CompareNumbers(GS.GetLooseChange(), totalCost) == true)
+                        result = NumberHandler.CompareNumbers(GS.GetLooseChange(), totalCost);
+                        if (result == true || result == null)
                         {
                             MakePurchase();
                         }
@@ -81,13 +83,15 @@ public class BuyItemPrefab : MonoBehaviour
                 switch (thisAccelerator.moneyType)
                 {
                     case MoneyTypes.MONEY:
-                        if (NumberHandler.CompareNumbers(GS.GetMoney(), totalCost) == true)
+                        bool? result = NumberHandler.CompareNumbers(GS.GetMoney(), totalCost);
+                        if (result == true || result == null)
                         {
                             MakePurchase();
                         }
                         break;
                     case MoneyTypes.LOOSECHANGE:
-                        if (NumberHandler.CompareNumbers(GS.GetLooseChange(), totalCost) == true)
+                        result = NumberHandler.CompareNumbers(GS.GetLooseChange(), totalCost);
+                        if (result == true || result == null)
                         {
                             MakePurchase();
                         }

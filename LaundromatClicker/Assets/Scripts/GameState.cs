@@ -82,26 +82,26 @@ public class GameState : MonoBehaviour
 
     public void IncreaseLooseChange(string add)
     {
-        money = NumberHandler.IncreaseNumber(looseChange, add);
-        UIM.UpdateLooseChange(money);
+        looseChange = NumberHandler.IncreaseNumber(looseChange, add);
+        UIM.UpdateLooseChange(looseChange);
     }
 
     public void IncreaseLooseChange(int add)
     {
-        money = NumberHandler.IncreaseNumber(looseChange, add.ToString());
-        UIM.UpdateLooseChange(money);
+        looseChange = NumberHandler.IncreaseNumber(looseChange, add.ToString());
+        UIM.UpdateLooseChange(looseChange);
     }
 
     public void DecreaseLooseChange(string takeaway)
     {
-        money = NumberHandler.DecreaseNumber(looseChange, takeaway);
-        UIM.UpdateLooseChange(money);
+        looseChange = NumberHandler.DecreaseNumber(looseChange, takeaway);
+        UIM.UpdateLooseChange(looseChange);
     }
 
     public void DecreaseLooseChange(int takeaway)
     {
-        money = NumberHandler.DecreaseNumber(looseChange, takeaway.ToString());
-        UIM.UpdateLooseChange(money);
+        looseChange = NumberHandler.DecreaseNumber(looseChange, takeaway.ToString());
+        UIM.UpdateLooseChange(looseChange);
     }
 
     public void AddMoneyPerClick(int amount)
@@ -119,5 +119,25 @@ public class GameState : MonoBehaviour
     public void AddAutoClick(int amount)
     {
         numAutoClicks += amount;
+    }
+
+    public int GetUpgradeStartClick()
+    {
+        return money.Length * money.Length;
+    }
+
+    public int GetUpgradeAutomators()
+    {
+        return money.Length;
+    }
+
+    public void Upgrade()
+    {
+        money = "0";
+        moneyPerClick = (money.Length * money.Length).ToString();
+        numAutoClicks = money.Length;
+        UIM.ResetPurchases();
+        UIM.UpdateMoneyPerClick(moneyPerClick);
+        UIM.UpdateMoney(money);
     }
 }
