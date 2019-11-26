@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using NumberSystem;
+using System;
 
 public class GameState : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class GameState : MonoBehaviour
     public int timeBetweenAutoClicks;
 
     private UIManager UIM;
+
+    private DateTime currentDate;
+    private DateTime lastDatePlayed = new DateTime(2019, 11, 24, 12, 00, 00); //EMPTY FOR LOAD
+    public bool collectedDailyReward = false; //EMPTY FOR LOAD
 
     private string money = "0";
     public string GetMoney()
@@ -30,6 +35,8 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
+        //Get data from save
+
         UIM = UIManager.instance;
 
         UIM.UpdateMoney(money);
@@ -37,6 +44,14 @@ public class GameState : MonoBehaviour
         UIM.UpdateMoneyPerClick(moneyPerClick);
 
         StartCoroutine(Automators());
+
+        currentDate = DateTime.Today;
+        if(currentDate.Date > lastDatePlayed.Date)
+        {
+            //Notify to collect daily reward
+        }
+
+
     }
 
     public IEnumerator Automators()

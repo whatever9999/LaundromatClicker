@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 119469625}
   - component: {fileID: 119469624}
   - component: {fileID: 119469623}
+  - component: {fileID: 119469626}
   m_Layer: 5
   m_Name: SocialMediaPanel
   m_TagString: Untagged
@@ -905,6 +906,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119469621}
   m_CullTransparentMesh: 0
+--- !u!114 &119469626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119469621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba1adc81355fbe4c955734c6902d57c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notifyText: {fileID: 121080392}
 --- !u!1 &121080390
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &121080391
 RectTransform:
   m_ObjectHideFlags: 0
@@ -955,7 +969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18823424, g: 0.8490566, b: 0.4110356, a: 1}
+  m_Color: {r: 0.123398006, g: 0.4433962, b: 0.2313264, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -975,7 +989,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You just shared a status about Laundromat Clicker!
+  m_Text: 
 --- !u!222 &121080393
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1381,7 +1395,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 230514076}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 119469626}
+        m_MethodName: ShareButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &230514076
@@ -1918,7 +1943,7 @@ GameObject:
   - component: {fileID: 379983074}
   - component: {fileID: 379983073}
   m_Layer: 5
-  m_Name: MusicButton
+  m_Name: PocketChangeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1986,7 +2011,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 379983074}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 629287204}
+        m_MethodName: BuyLooseChangeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &379983074
@@ -2474,10 +2510,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2485,7 +2521,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buy Money
+  m_Text: Buy 20000 Money
 --- !u!222 &433473483
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4271,6 +4307,7 @@ GameObject:
   - component: {fileID: 629287203}
   - component: {fileID: 629287202}
   - component: {fileID: 629287201}
+  - component: {fileID: 629287204}
   m_Layer: 5
   m_Name: IAPPanel
   m_TagString: Untagged
@@ -4386,6 +4423,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629287199}
   m_CullTransparentMesh: 0
+--- !u!114 &629287204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629287199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e3f27c1985e7a5438e8032fce68fa6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notifyText: {fileID: 2140949637}
+  moneyAddedWithPurchase: 20000
+  looseChangeAddedWithPurchase: 5000
 --- !u!1 &631331772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4685,7 +4737,7 @@ GameObject:
   - component: {fileID: 695113972}
   - component: {fileID: 695113971}
   m_Layer: 5
-  m_Name: SFXButton
+  m_Name: MoneyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4753,7 +4805,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 695113972}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 629287204}
+        m_MethodName: BuyMoneyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &695113972
@@ -8736,10 +8799,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -8747,7 +8810,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buy Pocket Change
+  m_Text: Buy 5000 Loose Change
 --- !u!222 &1540535432
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11913,7 +11976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2140949636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11966,7 +12029,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You just made a purchase!
+  m_Text: 
 --- !u!222 &2140949638
 CanvasRenderer:
   m_ObjectHideFlags: 0
