@@ -3,12 +3,8 @@ using UnityEngine.UI;
 
 public class UpgradePanel : MonoBehaviour
 {
-    private Text upgradeText;
-
-    private void Awake()
-    {
-        upgradeText = GetComponent<Text>();
-    }
+    public ParticleSystem[] confetti;
+    public Text upgradeText;
 
     private void OnEnable()
     {
@@ -17,6 +13,11 @@ public class UpgradePanel : MonoBehaviour
 
     public void UpgradeButton()
     {
+        foreach(ParticleSystem PS in confetti)
+        {
+            PS.Play();
+        }
         GameState.instance.Upgrade();
+        SFXManager.instance.PlayEffect(SoundEffectNames.FANFARE);
     }
 }

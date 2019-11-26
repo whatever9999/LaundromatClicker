@@ -3,7 +3,14 @@ using UnityEngine.Audio;
 
 public enum SoundEffectNames
 {
-    
+    BUTTON,
+    DINGONE,
+    DINGTWO,
+    DINGTHREE,
+    KACHING,
+    BUBBLE,
+    FANFARE,
+    FANFARETWO
 }
 
 public class SFXManager : MonoBehaviour
@@ -13,6 +20,8 @@ public class SFXManager : MonoBehaviour
     public SoundEffect[] soundEffects;
 
     public GameObject SFXPrefab;
+
+    private bool sfxOn = true;
 
     private void Awake()
     {
@@ -33,21 +42,29 @@ public class SFXManager : MonoBehaviour
      */
     public void PlayEffect(SoundEffectNames name)
     {
-        for(int i = 0; i < soundEffects.Length + 1; i++)
+        if(sfxOn)
         {
-            if(soundEffects[i].name == name)
+            for (int i = 0; i < soundEffects.Length + 1; i++)
             {
-                GameObject currentSFX = Instantiate(SFXPrefab);
-                AudioSource currentAS = currentSFX.GetComponent<AudioSource>();
+                if (soundEffects[i].name == name)
+                {
+                    GameObject currentSFX = Instantiate(SFXPrefab);
+                    AudioSource currentAS = currentSFX.GetComponent<AudioSource>();
 
-                currentAS.clip = soundEffects[i].clip;
-                currentAS.Play();
+                    currentAS.clip = soundEffects[i].clip;
+                    currentAS.Play();
 
-                Destroy(currentSFX, currentAS.clip.length);
-                
-                break;
+                    Destroy(currentSFX, currentAS.clip.length);
+
+                    break;
+                }
             }
         }
+    }
+
+    public void ToggleSFX()
+    {
+        sfxOn = !sfxOn;
     }
 }
 

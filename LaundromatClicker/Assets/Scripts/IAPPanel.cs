@@ -11,12 +11,14 @@ public class IAPPanel : MonoBehaviour
     {
         notifyText.text = "Money bought!";
         GameState.instance.IncreaseMoney(moneyAddedWithPurchase);
+        SFXManager.instance.PlayEffect(SoundEffectNames.KACHING);
     }
 
     public void BuyLooseChangeButton()
     {
         notifyText.text = "Loose change bought!";
         GameState.instance.IncreaseLooseChange(looseChangeAddedWithPurchase);
+        SFXManager.instance.PlayEffect(SoundEffectNames.KACHING);
     }
 
     private void OnDisable()

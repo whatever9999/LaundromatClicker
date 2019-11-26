@@ -86,11 +86,13 @@ public class UIManager : MonoBehaviour
 
     public void ClosePanel(GameObject panel)
     {
+        SFXManager.instance.PlayEffect(SoundEffectNames.BUTTON);
         panel.SetActive(false);
     }
 
     public void OpenPanel(GameObject panel)
     {
+        SFXManager.instance.PlayEffect(SoundEffectNames.BUTTON);
         panel.SetActive(true);
     }
 

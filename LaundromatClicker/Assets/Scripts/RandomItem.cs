@@ -35,6 +35,8 @@ public class RandomItem : MonoBehaviour
                 break;
         }
 
+        SFXManager.instance.PlayEffect(SoundEffectNames.DINGTHREE);
+
         gameObject.SetActive(false);
     }
 

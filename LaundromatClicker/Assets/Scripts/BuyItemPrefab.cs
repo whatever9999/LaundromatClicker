@@ -137,6 +137,7 @@ public class BuyItemPrefab : MonoBehaviour
                 break;
         }
 
+        SFXManager.instance.PlayEffect(SoundEffectNames.DINGONE);
         UpdateBuyButton();
     }
 

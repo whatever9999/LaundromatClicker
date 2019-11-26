@@ -44,6 +44,7 @@ public class WashingMachine : MonoBehaviour
         {
             PS.Play();
         }
+        SFXManager.instance.PlayEffect(SoundEffectNames.BUBBLE);
         GameState.instance.IncreaseMoney();
     }
 }

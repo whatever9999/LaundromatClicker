@@ -8,12 +8,22 @@ public class GameState : MonoBehaviour
     public static GameState instance;
 
     public int timeBetweenAutoClicks;
+    [HideInInspector]
+    public string prestigeScore = "0"; //EMPTY FOR LOAD
+
+    public int prestigeScorePlayedADayEffect = 1000;
 
     private UIManager UIM;
 
     private DateTime currentDate;
     private DateTime lastDatePlayed = new DateTime(2019, 11, 24, 12, 00, 00); //EMPTY FOR LOAD
+    public Item[] dailyRewards;
+    [HideInInspector]
     public bool collectedDailyReward = false; //EMPTY FOR LOAD
+    [HideInInspector]
+    public int currentDailyReward;
+
+    public GameObject notificationPanel;
 
     private string money = "0";
     public string GetMoney()
@@ -48,10 +58,10 @@ public class GameState : MonoBehaviour
         currentDate = DateTime.Today;
         if(currentDate.Date > lastDatePlayed.Date)
         {
-            //Notify to collect daily reward
+            collectedDailyReward = false;
+            notificationPanel.SetActive(true);
+            prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, prestigeScorePlayedADayEffect.ToString());
         }
-
-
     }
 
     public IEnumerator Automators()
@@ -68,18 +78,21 @@ public class GameState : MonoBehaviour
     public void IncreaseMoney()
     {
         money = NumberHandler.IncreaseNumber(money, moneyPerClick);
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, moneyPerClick);
         UIM.UpdateMoney(money);
     }
 
     public void IncreaseMoney(string add)
     {
         money = NumberHandler.IncreaseNumber(money, add);
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, add);
         UIM.UpdateMoney(money);
     }
 
     public void IncreaseMoney(int add)
     {
         money = NumberHandler.IncreaseNumber(money, add.ToString());
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, add.ToString());
         UIM.UpdateMoney(money);
     }
 
@@ -98,12 +111,14 @@ public class GameState : MonoBehaviour
     public void IncreaseLooseChange(string add)
     {
         looseChange = NumberHandler.IncreaseNumber(looseChange, add);
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, add);
         UIM.UpdateLooseChange(looseChange);
     }
 
     public void IncreaseLooseChange(int add)
     {
         looseChange = NumberHandler.IncreaseNumber(looseChange, add.ToString());
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, add.ToString());
         UIM.UpdateLooseChange(looseChange);
     }
 
@@ -122,17 +137,20 @@ public class GameState : MonoBehaviour
     public void AddMoneyPerClick(int amount)
     {
         moneyPerClick = NumberHandler.IncreaseNumber(moneyPerClick, amount.ToString());
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, amount.ToString());
         UIM.UpdateMoneyPerClick(moneyPerClick);
     }
 
     public void AddMoneyPerClick(string amount)
     {
         moneyPerClick = NumberHandler.IncreaseNumber(moneyPerClick, amount);
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, amount);
         UIM.UpdateMoneyPerClick(moneyPerClick);
     }
 
     public void AddAutoClick(int amount)
     {
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, (amount * 100).ToString());
         numAutoClicks += amount;
     }
 
@@ -154,5 +172,7 @@ public class GameState : MonoBehaviour
         UIM.ResetPurchases();
         UIM.UpdateMoneyPerClick(moneyPerClick);
         UIM.UpdateMoney(money);
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, moneyPerClick);
+        prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, numAutoClicks.ToString());
     }
 }
