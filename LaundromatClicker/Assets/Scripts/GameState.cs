@@ -166,9 +166,9 @@ public class GameState : MonoBehaviour
 
     public void Upgrade()
     {
-        money = "0";
         moneyPerClick = (money.Length * money.Length).ToString();
         numAutoClicks = money.Length;
+        money = "0";
         UIM.ResetPurchases();
         UIM.UpdateMoneyPerClick(moneyPerClick);
         UIM.UpdateMoney(money);

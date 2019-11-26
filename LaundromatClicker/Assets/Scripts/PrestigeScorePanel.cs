@@ -7,6 +7,6 @@ public class PrestigeScorePanel : MonoBehaviour
 
     private void OnEnable()
     {
-        prestigeText.text = "Your Prestige Score: " + GameState.instance.prestigeScore;
+        prestigeText.text = "Your Prestige Score: " + NumberSystem.NumberHandler.FormatNumber(GameState.instance.prestigeScore, 2);
     }
 }
