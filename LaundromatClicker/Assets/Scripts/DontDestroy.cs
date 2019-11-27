@@ -15,4 +15,12 @@ public class DontDestroy : MonoBehaviour
 
         SceneManager.LoadScene((int)Scenes.GAME);
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }

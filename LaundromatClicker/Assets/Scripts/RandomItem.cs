@@ -7,6 +7,7 @@ public class RandomItem : MonoBehaviour
     public float timeToTellUserEffect;
 
     private GameState GS;
+
     private Item thisItem;
 
     private void Start()
@@ -66,5 +67,6 @@ public class Item
     }
 
     public Effect effect;
+
     public int effectStrength;
 }

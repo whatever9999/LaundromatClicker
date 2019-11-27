@@ -7,36 +7,36 @@ public class GameState : MonoBehaviour
 {
     public static GameState instance;
 
-    public int timeBetweenAutoClicks;
-    [HideInInspector]
-    public string prestigeScore = "0"; //EMPTY FOR LOAD
+    public Item[] dailyRewards;
+    public GameObject notificationPanel;
 
+    public int timeBetweenAutoClicks;
     public int prestigeScorePlayedADayEffect = 1000;
+
+    [HideInInspector]
+    public string prestigeScore = "0";
+    [HideInInspector]
+    public DateTime lastDatePlayed = new DateTime(2019, 11, 24, 12, 00, 00);
+    [HideInInspector]
+    public bool collectedDailyReward = false;
+    [HideInInspector]
+    public int currentDailyReward;
+    [HideInInspector]
+    public string moneyPerClick = "1";
+    [HideInInspector]
+    public int numAutoClicks = 0;
 
     private UIManager UIM;
 
     private DateTime currentDate;
-    private DateTime lastDatePlayed = new DateTime(2019, 11, 24, 12, 00, 00); //EMPTY FOR LOAD
-    public Item[] dailyRewards;
-    [HideInInspector]
-    public bool collectedDailyReward = false; //EMPTY FOR LOAD
-    [HideInInspector]
-    public int currentDailyReward;
-
-    public GameObject notificationPanel;
-
     private string money = "0";
-    public string GetMoney()
-    {
-        return money;
-    }
     private string looseChange = "0";
-    public string GetLooseChange()
-    {
-        return looseChange;
-    }
-    private string moneyPerClick = "1";
-    private int numAutoClicks = 0;
+
+
+    public string GetMoney() { return money; }
+    public void SetMoney(string newMoney) { money = newMoney; }
+    public string GetLooseChange() { return looseChange; }
+    public void SetLooseChange(string newLooseChange) { looseChange = newLooseChange; }
 
     private void Awake()
     {
@@ -46,24 +46,35 @@ public class GameState : MonoBehaviour
     private void Start()
     {
         //Get data from save
+        SavingAndLoading.instance.LoadGame();
 
         UIM = UIManager.instance;
 
+        //Update the UI
         UIM.UpdateMoney(money);
         UIM.UpdateLooseChange(looseChange);
         UIM.UpdateMoneyPerClick(moneyPerClick);
 
+        //Start automators running
         StartCoroutine(Automators());
 
+        //Check if the player has played the game yet today
         currentDate = DateTime.Today;
-        if(currentDate.Date > lastDatePlayed.Date)
+        if (currentDate.Date > lastDatePlayed.Date)
         {
             collectedDailyReward = false;
-            notificationPanel.SetActive(true);
+            lastDatePlayed = currentDate;
             prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, prestigeScorePlayedADayEffect.ToString());
+        }
+
+        //Let the player know to collect their daily reward if they haven't yet
+        if(!collectedDailyReward)
+        {
+            notificationPanel.SetActive(true);
         }
     }
 
+    //Make each autoClick earn the user money on a timer
     public IEnumerator Automators()
     {
         for(int i = 0;  i < numAutoClicks; i++)
@@ -154,16 +165,21 @@ public class GameState : MonoBehaviour
         numAutoClicks += amount;
     }
 
+    //The amount the player's click will be worth if they upgrade;
     public int GetUpgradeStartClick()
     {
         return money.Length * money.Length;
     }
 
+    //The number of automators the player will have if they upgrade
     public int GetUpgradeAutomators()
     {
         return money.Length;
     }
 
+    //Set the player's click and autoClicks to the upgrade amount
+    //Reset all other variables (including purchases)
+    //Update the UI
     public void Upgrade()
     {
         moneyPerClick = (money.Length * money.Length).ToString();
@@ -174,5 +190,31 @@ public class GameState : MonoBehaviour
         UIM.UpdateMoney(money);
         prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, moneyPerClick);
         prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, numAutoClicks.ToString());
+    }
+}
+
+//Data to be saved
+[Serializable]
+public class GameStateData
+{
+    public string prestigeScore;
+    public DateTime lastDatePlayed;
+    public bool collectedDailyReward;
+    public string money;
+    public string looseChange;
+    public string moneyPerClick;
+    public int numAutoClicks;
+    public int currentDailyReward;
+
+    public GameStateData()
+    {
+        prestigeScore = GameState.instance.prestigeScore;
+        lastDatePlayed = GameState.instance.lastDatePlayed;
+        collectedDailyReward = GameState.instance.collectedDailyReward;
+        money = GameState.instance.GetMoney();
+        looseChange = GameState.instance.GetLooseChange();
+        moneyPerClick = GameState.instance.moneyPerClick;
+        numAutoClicks = GameState.instance.numAutoClicks;
+        currentDailyReward = GameState.instance.currentDailyReward;
     }
 }

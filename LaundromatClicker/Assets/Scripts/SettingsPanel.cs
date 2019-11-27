@@ -5,14 +5,17 @@ using UnityEngine.Audio;
 public class SettingsPanel : MonoBehaviour
 {
     public AudioMixer audioMixer;
+
     private bool musicOn = true;
 
+    //Turn the SFX on and off (stops sound effect prefabs from spawning)
     public void SFXButton(Image thisButton)
     {
         SFXManager.instance.ToggleSFX();
         ColourChange(thisButton);
     }
 
+    //Use a snapshot to turn music and ambience on/off
     public void MusicButton(Image thisButton)
     {
         ToggleMusic();

@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
 
     private BuyItemPrefab[] buttons;
 
+    //Set the automator cost to the start cost (In awake so that if there is save data the start data will be written over)
     private void Awake()
     {
         instance = this;
@@ -33,6 +34,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Get the button prefabs from the scene so that when panels are reset they can be reset too
     private void Start()
     {
         foreach (GameObject go in purchasePanels)
@@ -48,9 +50,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Reset purchasables and update buttons
     public void ResetPurchases()
     {
-        instance = this;
 
         foreach (Automator a in automators)
         {
@@ -96,6 +98,7 @@ public class UIManager : MonoBehaviour
         panel.SetActive(true);
     }
 
+    //The coroutine needs to be started in the UIManager as if it is started by the random item it will stop running when the random item is disabled
     public void ChangeRandomItemText(string newText, float timeOnScreen)
     {
         StartCoroutine(RandomItemText(newText, timeOnScreen));
@@ -133,14 +136,15 @@ public class Automator
     }
 
     public AutomatorNames name;
-    public int clickAdd;
-    [HideInInspector]
-    public int numberClicks;
-    public int startNumberClicks;
-
     public MoneyTypes moneyType;
+
+    public int clickAdd;
+    public int startNumberClicks;
     public int startCost;
     public int costIncrease;
+
+    [HideInInspector]
+    public int numberClicks;
     [HideInInspector]
     public string cost;
 
@@ -167,19 +171,34 @@ public class Accelerator
     }
 
     public AcceleratorNames name;
-    public int clickAdd;
-    [HideInInspector]
-    public int numberClicks;
-    public int startNumberClicks;
-
     public MoneyTypes moneyType;
+
+    public int clickAdd;
+    public int startNumberClicks;
     public int startCost;
     public int costIncrease;
+
+    [HideInInspector]
+    public int numberClicks;
     [HideInInspector]
     public string cost;
 
     public void IncreasePrice()
     {
         cost = NumberHandler.IncreaseNumber(cost, costIncrease.ToString());
+    }
+}
+
+//Data to be saved
+[System.Serializable]
+public class PurchasesData
+{
+    public Automator[] automators;
+    public Accelerator[] accelerators;
+
+    public PurchasesData()
+    {
+        automators = UIManager.instance.automators;
+        accelerators = UIManager.instance.accelerators;
     }
 }

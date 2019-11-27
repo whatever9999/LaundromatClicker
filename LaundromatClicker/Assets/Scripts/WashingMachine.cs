@@ -4,8 +4,8 @@ public class WashingMachine : MonoBehaviour
 {
     public AnimationClip animationClip;
 
-    private Animator animator;
     private ParticleSystem[] particleEffects;
+    private Animator animator;
 
     private bool beingClickedOn = false;
     private float clickIntervalToStopAnimating;

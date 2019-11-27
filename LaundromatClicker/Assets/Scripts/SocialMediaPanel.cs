@@ -5,6 +5,7 @@ public class SocialMediaPanel : MonoBehaviour
 {
     public Text notifyText;
 
+    //Let the player know they have successfully shared on social media
     public void ShareButton()
     {
         SFXManager.instance.PlayEffect(SoundEffectNames.DINGTWO);

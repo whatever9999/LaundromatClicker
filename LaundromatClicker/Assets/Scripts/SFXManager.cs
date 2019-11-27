@@ -10,7 +10,8 @@ public enum SoundEffectNames
     KACHING,
     BUBBLE,
     FANFARE,
-    FANFARETWO
+    FANFARETWO,
+    WHOOSH
 }
 
 public class SFXManager : MonoBehaviour
@@ -42,6 +43,7 @@ public class SFXManager : MonoBehaviour
      */
     public void PlayEffect(SoundEffectNames name)
     {
+        //Only works if SFX are in use
         if(sfxOn)
         {
             for (int i = 0; i < soundEffects.Length + 1; i++)

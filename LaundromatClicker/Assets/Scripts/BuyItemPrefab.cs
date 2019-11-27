@@ -7,6 +7,7 @@ public class BuyItemPrefab : MonoBehaviour
     public ItemTypes itemType;
     public Accelerator.AcceleratorNames accelerator;
     public Automator.AutomatorNames automator;
+    public Text cost;
 
     private GameState GS;
     private UIManager UIM;
@@ -15,7 +16,9 @@ public class BuyItemPrefab : MonoBehaviour
     private Accelerator thisAccelerator;
 
     private string totalCost;
+    private int costMultiplier = 1;
 
+    //So the player can buy purchasables in bulk
     enum CostMultipliers
     {
         ONE = 1,
@@ -23,14 +26,12 @@ public class BuyItemPrefab : MonoBehaviour
         TEN = 10
     }
 
-    public Text cost;
-    private int costMultiplier = 1;
-
+    //The prefab finds the purchasable linked to it and updates the buy button to reflect it
     private void OnEnable()
     {
         GS = GameState.instance;
         UIM = UIManager.instance;
-
+        
         switch (itemType)
         {
             case ItemTypes.AUTOMATOR:
@@ -58,13 +59,17 @@ public class BuyItemPrefab : MonoBehaviour
 
     public void BuyButton()
     {
+        //If the item is an automator or accelerator
         switch (itemType)
         {
             case ItemTypes.AUTOMATOR:
                 switch (thisAutomator.moneyType)
                 {
+                    //If it is bought with money or loose change
                     case MoneyTypes.MONEY:
+                        //Check if there is enough money
                         bool? result = NumberHandler.CompareNumbers(GS.GetMoney(), totalCost);
+                        //If there is then purchase the item
                         if (result == true || result == null)
                         {
                             MakePurchase();
@@ -103,12 +108,16 @@ public class BuyItemPrefab : MonoBehaviour
 
     public void MakePurchase()
     {
+        //If the item is an automator or accelerator
         switch (itemType)
         {
             case ItemTypes.AUTOMATOR:
+                //If it is bought with money or loose change
                 switch (thisAutomator.moneyType)
                 {
                     case MoneyTypes.MONEY:
+                        //Take away the cost from the player's money and make the effect of the item take place
+                        //Then increase the price of the item (in order to make it still purchasable)
                         GS.DecreaseMoney(totalCost);
                         GS.AddAutoClick(thisAutomator.numberClicks);
                         thisAutomator.IncreasePrice();
@@ -137,10 +146,11 @@ public class BuyItemPrefab : MonoBehaviour
                 break;
         }
 
-        SFXManager.instance.PlayEffect(SoundEffectNames.DINGONE);
         UpdateBuyButton();
+        SFXManager.instance.PlayEffect(SoundEffectNames.DINGONE);
     }
 
+    //Update the button that shows the bulk number of items the player is buying
     public void AmountInOneButton(Text thisButton)
     {
         switch (costMultiplier)
@@ -162,6 +172,7 @@ public class BuyItemPrefab : MonoBehaviour
         UpdateBuyButton();
     }
 
+    //Make the button show how much the item costs (including multipliers if it's being bought in bulk)
     public void UpdateBuyButton()
     {
         switch (itemType)

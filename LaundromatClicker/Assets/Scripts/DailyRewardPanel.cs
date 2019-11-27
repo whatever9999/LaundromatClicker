@@ -3,23 +3,27 @@ using UnityEngine.UI;
 
 public class DailyRewardPanel : MonoBehaviour
 {
-    public Text notifyText;
     public ParticleSystem[] fireworks;
+    public Text notifyText;
+
+    private GameState GS;
 
     private Item todaysReward;
-    private GameState GS;
 
     private void Start()
     {
         GS = GameState.instance;
 
+        //Update the daily reward according to the game state
         todaysReward = GS.dailyRewards[GS.currentDailyReward];
     }
 
     public void DailyRewardButton()
     {
+        //If the player hasn't collected their daily reward yet
         if(!GS.collectedDailyReward)
         {
+            //Provide them with the results of the reward according to its effect
             switch (todaysReward.effect)
             {
                 case Item.Effect.ADDMONEY:
@@ -33,14 +37,16 @@ public class DailyRewardPanel : MonoBehaviour
                     break;
             }
 
+            //Let the game state know they have collected it
+            //And increment the reward counter so that tomorrow the reward will be different
             GS.collectedDailyReward = true;
             ++GS.currentDailyReward;
-
             if(GS.currentDailyReward >= GS.dailyRewards.Length)
             {
                 GS.currentDailyReward = 0;
             }
 
+            //Let them know that collecting the reward was successful
             notifyText.text = "Daily reward collected. Get another one tomorrow!";
             SFXManager.instance.PlayEffect(SoundEffectNames.FANFARETWO);
 
@@ -50,6 +56,7 @@ public class DailyRewardPanel : MonoBehaviour
             }
         } else
         {
+            //Remind the player they have already collected their daily reward
             notifyText.text = "You have already collected your daily reward!";
             SFXManager.instance.PlayEffect(SoundEffectNames.BUTTON);
         }
