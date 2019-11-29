@@ -644,7 +644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &74110421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12811,8 +12811,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015259, y: 0}
-  m_SizeDelta: {x: 391, y: 289.6}
+  m_AnchoredPosition: {x: 1.2, y: -18.199999}
+  m_SizeDelta: {x: 468.6, y: 326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771045378
 MonoBehaviour:
@@ -12836,12 +12836,12 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 19
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -12851,14 +12851,25 @@ MonoBehaviour:
 
     Become the best laundromat in the world!
 
+
     <b>How to Play:</b>
 
-    Click on the washing machine to earn money by washing clothes.
+    Click on the washing machine to earn money.
 
-    Buy items for automated clicks and to increase click power.
 
-    If you have bought all the items then upgrade the laundromat to start afresh with
-    a boost to clicks!'
+    Buy items to get auto-clicks and make clicks better.
+
+
+    Upgrade the laundromat to reset with better clicks.
+
+
+    Click on the box on the table for random rewards!
+
+
+    Close the menu by clicking anywhere.
+
+
+    Press escape to quit (i.e. never press escape).'
 --- !u!222 &1771045379
 CanvasRenderer:
   m_ObjectHideFlags: 0

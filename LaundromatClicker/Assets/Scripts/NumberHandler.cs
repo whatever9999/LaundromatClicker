@@ -57,6 +57,8 @@ namespace NumberSystem
                 n = n.Substring(0, decimalPoint) + "." + n.Substring(decimalPoint, decimalPlaces);
             }
 
+            n = RemoveZeros(n);
+
             //Return the number as a string (e.g. 4.56 or 23728) and its unit (e.g. million or '' respectively)
             return n + unit;
         }
@@ -159,6 +161,8 @@ namespace NumberSystem
                 n = n.Substring(0, n.Length - i) + resultInt + n.Substring(n.Length - i + 1, i - 1);
             }
 
+            n = RemoveZeros(n);
+
             return n;
         }
 
@@ -206,6 +210,34 @@ namespace NumberSystem
             }
 
             return aBigger;
+        }
+
+        //Get rid of any leading zeros
+        private static string RemoveZeros(string s)
+        {
+            int zeroCount = 0;
+
+            //Count the number of zeros at the beginning of the string
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '0')
+                {
+                    zeroCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            //If the string isn't 0
+            if (s.Length != 1)
+            {
+                //Cut off the leading zeros
+                s = s.Substring(zeroCount, s.Length - zeroCount);
+            }
+
+            return s;
         }
     }
 }

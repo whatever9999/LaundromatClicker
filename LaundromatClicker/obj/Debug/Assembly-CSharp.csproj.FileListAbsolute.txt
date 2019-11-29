@@ -201,3 +201,10 @@ D:\GitHub\LaundromatClicker\LaundromatClicker\obj\Debug\Assembly-CSharp.csproj.C
 D:\GitHub\LaundromatClicker\LaundromatClicker\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\GitHub\LaundromatClicker\LaundromatClicker\obj\Debug\Assembly-CSharp.dll
 D:\GitHub\LaundromatClicker\LaundromatClicker\obj\Debug\Assembly-CSharp.pdb
+D:\GitHub\LaundromatClicker\LaundromatClicker\Temp\bin\Debug\Unity.Timeline.Editor.pdb
+D:\GitHub\LaundromatClicker\LaundromatClicker\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
+D:\GitHub\LaundromatClicker\LaundromatClicker\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb
+D:\GitHub\LaundromatClicker\LaundromatClicker\Temp\bin\Debug\Unity.Timeline.pdb
+D:\GitHub\LaundromatClicker\LaundromatClicker\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
+D:\GitHub\LaundromatClicker\LaundromatClicker\Temp\bin\Debug\Unity.TextMeshPro.pdb
+D:\GitHub\LaundromatClicker\LaundromatClicker\Temp\bin\Debug\Unity.Analytics.DataPrivacy.pdb
