@@ -6,6 +6,9 @@ public class SettingsPanel : MonoBehaviour
 {
     public AudioMixer audioMixer;
 
+    public Color buttonEnabled;
+    public Color buttonDisabled;
+
     private bool musicOn = true;
 
     //Turn the SFX on and off (stops sound effect prefabs from spawning)
@@ -38,13 +41,14 @@ public class SettingsPanel : MonoBehaviour
 
     private void ColourChange(Image thisButton)
     {
-        if (thisButton.color == Color.white)
+        if (thisButton.color == buttonEnabled)
         {
-            thisButton.color = Color.black;
+            thisButton.color = buttonDisabled;
+            
         }
         else
         {
-            thisButton.color = Color.white;
+            thisButton.color = buttonEnabled;
         }
     }
 }

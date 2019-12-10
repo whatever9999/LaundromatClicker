@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public Text looseChangeText;
     public Text moneyPerClickText;
     public Text randomItemText;
+    public Text automatorText;
 
     public int numDecimalPlaces;
 
@@ -69,6 +70,11 @@ public class UIManager : MonoBehaviour
         {
             b.UpdateBuyButton();
         }
+    }
+
+    public void UpdateAutoClicks(int autoClicks)
+    {
+        automatorText.text = autoClicks.ToString();
     }
 
     public void UpdateMoney(string money)

@@ -40,7 +40,7 @@ public class WashingMachine : MonoBehaviour
     {
         //Animate and use particle effects when clicked on
         beingClickedOn = true;
-        foreach(ParticleSystem PS in particleEffects)
+        foreach (ParticleSystem PS in particleEffects)
         {
             PS.Play();
         }

@@ -54,6 +54,7 @@ public class GameState : MonoBehaviour
         UIM.UpdateMoney(money);
         UIM.UpdateLooseChange(looseChange);
         UIM.UpdateMoneyPerClick(moneyPerClick);
+        UIM.UpdateAutoClicks(numAutoClicks);
 
         //Start automators running
         StartCoroutine(Automators());
@@ -163,18 +164,19 @@ public class GameState : MonoBehaviour
     {
         prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, (amount * 100).ToString());
         numAutoClicks += amount;
+        UIM.UpdateAutoClicks(numAutoClicks);
     }
 
     //The amount the player's click will be worth if they upgrade;
     public int GetUpgradeStartClick()
     {
-        return money.Length * money.Length;
+        return money.Length * money.Length * money.Length * money.Length;
     }
 
     //The number of automators the player will have if they upgrade
     public int GetUpgradeAutomators()
     {
-        return money.Length;
+        return money.Length * money.Length;
     }
 
     //Set the player's click and autoClicks to the upgrade amount
@@ -182,12 +184,13 @@ public class GameState : MonoBehaviour
     //Update the UI
     public void Upgrade()
     {
-        moneyPerClick = (money.Length * money.Length).ToString();
-        numAutoClicks = money.Length;
+        moneyPerClick = GetUpgradeStartClick().ToString();
+        numAutoClicks = GetUpgradeAutomators();
         money = "0";
         UIM.ResetPurchases();
         UIM.UpdateMoneyPerClick(moneyPerClick);
         UIM.UpdateMoney(money);
+        UIM.UpdateAutoClicks(numAutoClicks);
         prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, moneyPerClick);
         prestigeScore = NumberHandler.IncreaseNumber(prestigeScore, numAutoClicks.ToString());
     }
